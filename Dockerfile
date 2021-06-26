@@ -10,5 +10,5 @@ RUN poetry install
 ENV PORT=8000
 ENV DB=localhost
 ENV DEBUG=True
-
+EXPOSE 5000
 CMD poetry run python app.py
