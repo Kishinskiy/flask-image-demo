@@ -1,6 +1,10 @@
+from datetime import datetime
 from flask import Flask, request
 from flask_restful import Resource, Api
 from flask_sqlalchemy import SQLAlchemy
+from pydantic import BaseModel
+
+from flask_pydantic import validate
 
 import os
 
@@ -9,8 +13,15 @@ api = Api(app)
 
 DB_URL = os.getenv('DB')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/flask_db'
 db = SQLAlchemy(app)
+
+
+class BodyModel(BaseModel):
+      title: str
+      description: str
+      created: datetime
+      author: str
 
 
 class Blogs(db.Model):
@@ -27,8 +38,8 @@ db.create_all()
 
 
 class SaveBlog(Resource):
-
-    def post(self):
+    @validate(body=BodyModel)
+    def put(self):
         blog_title = request.form['title']
         blog_description = request.form['description']
         blog_created = request.form['created']

@@ -1,5 +1,7 @@
-from requests import put, get
+from requests import put, get, post
 import random, string
+
+import json
 
 t = string.ascii_letters
 name = []
@@ -9,8 +11,6 @@ for i in range(10):
 
 url = "http://127.0.0.1:8080"
 
-put(url, data={'title': "".join(name),
-'description': 'blog description',
-'created': '2021-06-27 13:35',
-'author':'User'
-}).json()
+out = put(url, headers={'content-type': 'application/json'}, data={"title": "".join(name), "description": "blog description","created": "2021-06-27 13:35","author":"User"}).json()
+
+print(out)
