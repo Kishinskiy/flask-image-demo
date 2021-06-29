@@ -8,7 +8,6 @@ RUN pip3 install poetry
 RUN poetry env use python3.9
 RUN poetry install
 ENV PORT=8000
-ENV DB=postgresql://postgres:postgres@localhost/flask_db
 ENV DEBUG=True
 EXPOSE 5000
 CMD poetry run python server.py
