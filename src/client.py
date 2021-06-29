@@ -11,6 +11,6 @@ for i in range(10):
 
 url = "http://127.0.0.1:8080"
 
-out = put(url, headers={'content-type': 'application/json'}, data={"title": "".join(name), "description": "blog description","created": "2021-06-27 13:35","author":"User"}).json()
+out = put(url, headers={'content-type': 'application/json'}, json={"title": "".join(name), "description": "blog description","created": "2021-06-27 13:35","author":"User"}).json()
 
 print(out)

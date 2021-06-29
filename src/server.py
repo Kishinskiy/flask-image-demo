@@ -40,10 +40,10 @@ db.create_all()
 class SaveBlog(Resource):
     @validate(body=BodyModel)
     def put(self):
-        blog_title = request.form['title']
-        blog_description = request.form['description']
-        blog_created = request.form['created']
-        blog_author = request.form['author']
+        blog_title = request.body_params.title
+        blog_description = request.body_params.description
+        blog_created = request.body_params.created
+        blog_author = request.body_params.author
 
         db_data = Blogs(title=blog_title,
                         description=blog_description,
