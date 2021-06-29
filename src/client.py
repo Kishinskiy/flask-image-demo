@@ -16,10 +16,10 @@ title = "".join(name)
 out = post(
     url,
     headers={'content-type': 'application/json'},
-    data={
+    json={
         "title": "".join(name),
         "description": "blog description",
-        # "created": "2021-06-27T13:35",
+        "created": "2021-06-27 13:35",
         "author": "User"}
 ).json()
 
