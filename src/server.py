@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-from flask import Flask
+from flask import Flask, render_template
 from flask_pydantic import validate
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
@@ -35,6 +35,9 @@ class Blogs(db.Model):
 
 db.create_all()
 
+@app.route('/')
+def home():
+   return render_template('base.html')
 
 @app.route('/blog', methods=['POST'])
 @validate()
