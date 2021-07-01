@@ -10,6 +10,8 @@ from pydantic import BaseModel
 app = Flask(__name__)
 api = Api(app)
 
+PORT = os.getenv('PORT')
+DEBUG = os.getenv('DEBUG')
 DB_URL = os.getenv('DB')
 
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
@@ -80,4 +82,4 @@ def delete(post_title):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=PORT, debug=DEBUG)
