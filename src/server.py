@@ -10,8 +10,8 @@ from pydantic import BaseModel
 app = Flask(__name__)
 api = Api(app)
 
-PORT = os.getenv('PORT')
-DEBUG = os.getenv('DEBUG')
+PORT = int(os.getenv('PORT', default='8080'))
+DEBUG = os.getenv('DEBUG', True)
 DB_URL = os.getenv('DB')
 
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
@@ -37,9 +37,11 @@ class Blogs(db.Model):
 
 db.create_all()
 
+
 @app.route('/')
 def home():
-   return render_template('base.html')
+    return render_template('base.html')
+
 
 @app.route('/blog', methods=['POST'])
 @validate()
@@ -83,4 +85,3 @@ def delete(post_title):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=PORT, debug=DEBUG)
-

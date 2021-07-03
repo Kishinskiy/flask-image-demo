@@ -1,7 +1,7 @@
-from requests import put, get, post
-import random, string
+import random
+import string
 
-import json
+from requests import post
 
 t = string.ascii_letters
 name = []
