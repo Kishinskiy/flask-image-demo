@@ -15,7 +15,7 @@ services:
     restart: unless-stopped
 
   flask:
-    build: .
+    image: kishinskiy/myflask:latest
     env_file:
       - .env
     ports:
