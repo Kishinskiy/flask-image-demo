@@ -31,10 +31,17 @@ jobs:
     needs: tests
     runs-on: ubuntu-latest
     steps:
-      - name: Build App Image
+      - name: Login to DockerHub
         uses: docker/build-push-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: kishinskiy/myflask
-          tags: latest
+
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./Dockerfile
+          push: true
+          tags: kishinskiy/myflask:latest
