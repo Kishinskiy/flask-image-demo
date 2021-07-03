@@ -24,6 +24,5 @@ jobs:
           poetry env use python3.9
           poetry install
 
-      - name: test flask-app
-        run: |
-          poetry env info
+      - name: test flake8
+        run: poetry run flake8 .
