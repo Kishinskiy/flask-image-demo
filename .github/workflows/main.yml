@@ -31,6 +31,9 @@ jobs:
     needs: tests
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Login to DockerHub
         uses: docker/build-push-action@v2
         with:
