@@ -26,4 +26,4 @@ jobs:
 
       - name: test flask-app
         run: |
-          poetry run python flake8 .
+          poetry env info
