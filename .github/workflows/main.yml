@@ -26,5 +26,5 @@ jobs:
 
       - name: test flask-app
         run: |
-          poetry run python isort .
+          isort .
           poetry run python flake8 .
