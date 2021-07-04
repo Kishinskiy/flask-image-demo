@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myflask-deployment
+spec:
+  selector:
+    matchLabels:
+      app: myflask
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: myflask
+    spec:
+      containers:
+      - name: myflask
+        image: kishinskiy/myflask:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+        env:
+          - name: DB
+            value: postgresql+psycopg2://postgres:postgres@postgres:5432/flask_db
+          - name: PORT
+            value: '8080'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: posgres-deployment
+spec:
+  selector:
+    matchLabels:
+      app: postgres
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres
+        ports:
+        - containerPort: 5432
+        env:
+          - name: POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_PASSWORD
+            value: postgres
+          - name: POSTGRES_DB
+            value: flask_db
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myflask
+spec:
+  selector:
+    app: myflask
+  ports:
+  - protocol: "TCP"
+    port: 8080
+    targetPort: 8080
+  type: "LoadBalancer"
+  loadBalancerIP: ""
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+spec:
+  ports:
+    - port: 5432
+  selector:
+    app: postgres
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: "myflask"
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: "myflask"
+          servicePort: 8080
+    host: "hwrequest.mycompany.com"
