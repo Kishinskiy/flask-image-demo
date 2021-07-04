@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: generate pem.key
-        run: echo ${{secrets.MAIL_CLOUD_PRIVATE_KEY}} > mail_cloud.pem
+        run: cat ${{secrets.MAIL_CLOUD_PRIVATE_KEY}} > mail_cloud.pem
 
       - name: deploy docker-compose
         run: scp -i mail_cloud.pem centos@185.86.146.162:~/
