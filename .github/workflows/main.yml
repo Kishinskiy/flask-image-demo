@@ -57,5 +57,4 @@ jobs:
         run: echo ${{secrets.MAIL_CLOUD_PRIVATE_KEY}} > mail_cloud.pem
 
       - name: deploy docker-compose
-        run: |
-        scp -i mail_cloud.pem centos@185.86.146.162:~/
+        run: scp -i mail_cloud.pem centos@185.86.146.162:~/
