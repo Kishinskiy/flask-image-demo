@@ -18,18 +18,19 @@ pipeline {
                   docker.withRegistry( '', registryCredential ) {
                       def dockerImage = docker.build "kishinskiy/myflask:latest"
                       dockerImage.push()
-                      }
-                   }
+                  }
                }
            }
        }
        stage("Start Docker-Compose") {
-       steps{
-            script{
-                sh "docker-compose up -d"
+           steps{
+                script{
+                    sh "docker-compose up -d"
                 }
-            }
+           }
        }
+    }
+
 
     post {
         always {
