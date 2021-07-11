@@ -29,6 +29,13 @@ pipeline {
        stage("Start Docker-Compose") {
            steps{
                 script{
+                    try{
+                         sh "docker-compose down"
+                         sleep(time:10,unit:"SECONDS")
+                    } catch (Exception e) {
+                        echo 'Exception occurred: ' + e.toString()
+                    }
+
                     withCredentials([
                         usernamePassword(credentialsId: 'postgres_id', usernameVariable: 'POSTGRES_USER', passwordVariable: 'POSTGRES_PASSWORD'),
                         string(credentialsId: 'database', variable: 'DB')
