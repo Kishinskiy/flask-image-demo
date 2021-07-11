@@ -23,6 +23,13 @@ pipeline {
                }
            }
        }
+       stage("Start Docker-Compose") {
+       steps{
+            script{
+                sh "docker-compose up -d"
+                }
+            }
+       }
 
     post {
         always {
