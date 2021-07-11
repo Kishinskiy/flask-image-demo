@@ -30,8 +30,8 @@ pipeline {
            steps{
                 script{
                     withCredentials([
-                        usernamePassword(credentialsId: postgres_id, usernameVariable: 'POSTGRES_USER', passwordVariable: 'POSTGRES_PASSWORD'),
-                        string(credentialsId: database, variable: 'DB')
+                        usernamePassword(credentialsId: 'postgres_id', usernameVariable: 'POSTGRES_USER', passwordVariable: 'POSTGRES_PASSWORD'),
+                        string(credentialsId: 'database', variable: 'DB')
                         ]){
                         sh "docker-compose up -d"
                     }
