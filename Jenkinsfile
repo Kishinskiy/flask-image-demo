@@ -11,8 +11,8 @@ pipeline {
         dockerImage = ''
         POSTGRES_DB="flask_db"
         PGDATA="/data/postgres"
-        PORT=80
-        DEBUG=False
+        PORT="80"
+        DEBUG="False"
     }
 
     stages {
