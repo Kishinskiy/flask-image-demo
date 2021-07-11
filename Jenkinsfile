@@ -50,7 +50,6 @@ pipeline {
 
     post {
         always {
-            sh "oc logout"
             cleanWs disableDeferredWipeout: true, deleteDirs: true
         }
     }

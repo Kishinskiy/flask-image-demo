@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_instance" "my_webserver" {
     ami = "ami-05f7491af5eef733a"
-    instance_type = "t3.micro"
+    instance_type = "t3.medium"
     vpc_security_group_ids = [aws_security_group.my_webserver.id]
     key_name = "${aws_key_pair.ubuntu.key_name}"
     user_data = <<EOF
@@ -25,6 +25,13 @@ apt-get update
 apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose
 groupadd docker
 usermod -aG docker ubuntu
+
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+
+apt-get update
+apt-get install -y openjdk-8-jdk jenkins
+usermod -aG docker jenkins
 reboot
 EOF
 }
