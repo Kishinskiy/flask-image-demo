@@ -49,9 +49,9 @@ jobs:
           push: true
           tags: kishinskiy/myflask:latest
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: deploy docker-compose
-        run: scp -i ${{ secrets.MAIL_CLOUD_PRIVATE_KEY }} centos@185.86.146.162:~/
+#  deploy:
+#    needs: build
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: deploy docker-compose
+#        run: scp -i ${{ secrets.MAIL_CLOUD_PRIVATE_KEY }} centos@185.86.146.162:~/
