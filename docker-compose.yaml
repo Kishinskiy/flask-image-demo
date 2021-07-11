@@ -4,8 +4,11 @@ version: '3.5'
 services:
   postgres:
     image: postgres
-    env_file:
-      - .env
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - PGDATA
+      - POSTGRES_DB
     volumes:
        - postgres:/data/postgres
 #    ports:
@@ -16,10 +19,12 @@ services:
 
   flask:
     image: kishinskiy/myflask:latest
-    env_file:
-      - .env
+    environment:
+      - PORT
+      - DB
+      - DEBUG
     ports:
-      - 80:8080
+      - $PORT:$PORT
     networks:
       - postgres
     depends_on:

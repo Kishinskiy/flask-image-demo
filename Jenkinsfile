@@ -9,6 +9,10 @@ pipeline {
         registry = "kishinskiy/myflask"
         registryCredential = 'dockerhub_id'
         dockerImage = ''
+        POSTGRES_DB="flask_db"
+        PGDATA="/data/postgres"
+        PORT=80
+        DEBUG=False
     }
 
     stages {
@@ -25,7 +29,12 @@ pipeline {
        stage("Start Docker-Compose") {
            steps{
                 script{
-                    sh "docker-compose up -d"
+                    withCredentials([
+                        usernamePassword(credentialsId: postgres_id, usernameVariable: 'POSTGRES_USER', passwordVariable: 'POSTGRES_PASSWORD'),
+                        string(credentialsId: database, variable: 'DB')
+                        ]){
+                        sh "docker-compose up -d"
+                    }
                 }
            }
        }
