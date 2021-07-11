@@ -16,7 +16,7 @@ pipeline {
            steps{
                script{
                   docker.withRegistry( '', registryCredential ) {
-                      def dockerImage = docker.build "kishinskiy/myflask:${env.BUILD_TAG}"
+                      def dockerImage = docker.build "kishinskiy/myflask:latest"
                       dockerImage.push()
                       }
                    }
